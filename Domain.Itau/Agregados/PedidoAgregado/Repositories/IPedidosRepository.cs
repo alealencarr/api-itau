@@ -6,6 +6,7 @@
         Task<List<Pedido>> GetAll();
         Task<Pedido?> GetPorId(int id);
         Task<List<Pedido>> GetPorIds(HashSet<int> idsPedidos);
+        Task<Pedido?> GetPorNumero(string numeroPedido);
         Task Update(Pedido pedido);
     }
 }

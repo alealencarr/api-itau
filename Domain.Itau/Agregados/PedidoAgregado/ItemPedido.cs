@@ -6,11 +6,12 @@ namespace Domain.Itau.Agregados.PedidoAgregado
     {
         public int Id { get; private set; }
         public int ProdutoId { get; private set; }
-        public Produto? Produto { get; private set; }
         public int PedidoId { get; private set; }
         public int Quantidade { get; private set; }
         public decimal PrecoUnitario { get; private set; }
         public decimal Subtotal => Quantidade * PrecoUnitario;
+
+        public virtual Produto Produto { get; set; }
 
         public virtual Pedido Pedido { get; set; }
 
@@ -22,7 +23,6 @@ namespace Domain.Itau.Agregados.PedidoAgregado
             ValidarQuantidade(quantidade);
 
             ProdutoId = produto.Id;
-            Produto = produto;
             PrecoUnitario = produto.Preco; // captura o preço no momento do pedido
             Quantidade = quantidade;
         }

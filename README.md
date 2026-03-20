@@ -6,6 +6,7 @@
 
 A apresentação do projeto está disponível em [GitHub Pages](https://alealencarr.github.io/api-itau/).
 
+A descrição do desafio está em docs/Desafio Técnico - Implementação.txt
 ---
 
 ## 📋 Índice

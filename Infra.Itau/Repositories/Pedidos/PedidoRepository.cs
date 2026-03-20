@@ -51,6 +51,13 @@ namespace Infra.Itau.Repositories.Pedidos
                 .ToListAsync();
         }
 
+        public async Task<Pedido?> GetPorNumero(string numeroPedido)
+        {
+            return await _context.Pedidos 
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.NumeroPedido == numeroPedido);
+        }
+
         public async Task Update(Pedido pedido)
         {
             _context.Pedidos.Update(pedido);

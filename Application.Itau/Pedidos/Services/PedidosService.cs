@@ -30,6 +30,13 @@ namespace Application.Itau.Pedidos.Services
             {
                 _logger.LogInformation("PedidosService-Create: Recebida requisição para criação do pedido: {Numero}", dto.NumeroPedido);
 
+                var pedidoDuplicado = await _pedidosRepository.GetPorNumero(dto.NumeroPedido);
+
+                if (pedidoDuplicado is not null)
+                {
+                    return new CommandResult<int?> { Message = "Já existe um produto com este número, favor informar outro número.", StatusCode = HttpStatusCode.BadRequest };
+                }
+
                 var dataIsValid = await IdsProductsIsValid(dto); //Valida se existem no DB e se são todos ativos.
 
                 if (!dataIsValid.Data.isValid)
