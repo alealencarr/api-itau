@@ -1,0 +1,306 @@
+{
+  "info": {
+    "name": "API Itaú — Catálogo & Pedidos",
+    "description": "Collection completa com todos os endpoints, payloads e cenários de erro.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "host", "value": "http://localhost:5160", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "🛍️ Produtos",
+      "item": [
+        {
+          "name": "GET — Listar todos os produtos ativos",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{host}}/api/produtos", "host": ["{{host}}"], "path": ["api","produtos"] }
+          }
+        },
+        {
+          "name": "GET — Produto por ID (existente)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{host}}/api/produtos/1", "host": ["{{host}}"], "path": ["api","produtos","1"] }
+          }
+        },
+        {
+          "name": "GET — Produto por ID (404)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{host}}/api/produtos/999", "host": ["{{host}}"], "path": ["api","produtos","999"] }
+          }
+        },
+        {
+          "name": "POST — Criar produto válido",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Smartphone Samsung Galaxy S24\",\n  \"descricao\": \"Smartphone 256GB 12GB RAM câmera 200MP\",\n  \"preco\": 3499.90,\n  \"estoque\": 20\n}"
+            },
+            "url": { "raw": "{{host}}/api/produtos", "host": ["{{host}}"], "path": ["api","produtos"] }
+          }
+        },
+        {
+          "name": "POST — Criar produto sem descrição (opcional)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Cabo USB-C 2m\",\n  \"preco\": 39.90,\n  \"estoque\": 100\n}"
+            },
+            "url": { "raw": "{{host}}/api/produtos", "host": ["{{host}}"], "path": ["api","produtos"] }
+          }
+        },
+        {
+          "name": "POST — Criar produto (400) — nome vazio",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"\",\n  \"preco\": 99.90,\n  \"estoque\": 10\n}"
+            },
+            "url": { "raw": "{{host}}/api/produtos", "host": ["{{host}}"], "path": ["api","produtos"] }
+          }
+        },
+        {
+          "name": "POST — Criar produto (400) — preço zero",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Produto Inválido\",\n  \"preco\": 0,\n  \"estoque\": 10\n}"
+            },
+            "url": { "raw": "{{host}}/api/produtos", "host": ["{{host}}"], "path": ["api","produtos"] }
+          }
+        },
+        {
+          "name": "POST — Criar produto (400) — estoque negativo",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Produto Inválido\",\n  \"preco\": 99.90,\n  \"estoque\": -5\n}"
+            },
+            "url": { "raw": "{{host}}/api/produtos", "host": ["{{host}}"], "path": ["api","produtos"] }
+          }
+        },
+        {
+          "name": "PUT — Atualizar produto",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Notebook Dell Inspiron Atualizado\",\n  \"descricao\": \"Notebook Dell i9 32GB RAM 1TB SSD\",\n  \"preco\": 6499.99,\n  \"estoque\": 5\n}"
+            },
+            "url": { "raw": "{{host}}/api/produtos/1", "host": ["{{host}}"], "path": ["api","produtos","1"] }
+          }
+        },
+        {
+          "name": "PUT — Atualizar produto (404)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Produto Fantasma\",\n  \"preco\": 99.90,\n  \"estoque\": 5\n}"
+            },
+            "url": { "raw": "{{host}}/api/produtos/999", "host": ["{{host}}"], "path": ["api","produtos","999"] }
+          }
+        },
+        {
+          "name": "DELETE — Desativar produto (soft delete)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{host}}/api/produtos/10", "host": ["{{host}}"], "path": ["api","produtos","10"] }
+          }
+        },
+        {
+          "name": "DELETE — Produto não encontrado (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{host}}/api/produtos/999", "host": ["{{host}}"], "path": ["api","produtos","999"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📦 Pedidos",
+      "item": [
+        {
+          "name": "GET — Listar todos os pedidos",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{host}}/api/pedidos", "host": ["{{host}}"], "path": ["api","pedidos"] }
+          }
+        },
+        {
+          "name": "GET — Pedido por ID (existente)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{host}}/api/pedidos/1", "host": ["{{host}}"], "path": ["api","pedidos","1"] }
+          }
+        },
+        {
+          "name": "GET — Pedido por ID (404)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{host}}/api/pedidos/999", "host": ["{{host}}"], "path": ["api","pedidos","999"] }
+          }
+        },
+        {
+          "name": "POST — Criar pedido válido (múltiplos itens)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroPedido\": \"PED-006\",\n  \"clienteNome\": \"Fernanda Lima\",\n  \"clienteEmail\": \"fernanda.lima@email.com\",\n  \"itens\": [\n    { \"produtoId\": 1, \"quantidade\": 1 },\n    { \"produtoId\": 3, \"quantidade\": 2 },\n    { \"produtoId\": 5, \"quantidade\": 1 }\n  ]\n}"
+            },
+            "url": { "raw": "{{host}}/api/pedidos", "host": ["{{host}}"], "path": ["api","pedidos"] }
+          }
+        },
+        {
+          "name": "POST — Criar pedido com item duplicado (agrupa qtde)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroPedido\": \"PED-007\",\n  \"clienteNome\": \"Carlos Melo\",\n  \"clienteEmail\": \"carlos.melo@email.com\",\n  \"itens\": [\n    { \"produtoId\": 2, \"quantidade\": 2 },\n    { \"produtoId\": 2, \"quantidade\": 3 }\n  ]\n}"
+            },
+            "url": { "raw": "{{host}}/api/pedidos", "host": ["{{host}}"], "path": ["api","pedidos"] }
+          }
+        },
+        {
+          "name": "POST — Criar pedido (404) — produto inexistente",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroPedido\": \"PED-008\",\n  \"clienteNome\": \"Teste\",\n  \"clienteEmail\": \"teste@email.com\",\n  \"itens\": [\n    { \"produtoId\": 999, \"quantidade\": 1 }\n  ]\n}"
+            },
+            "url": { "raw": "{{host}}/api/pedidos", "host": ["{{host}}"], "path": ["api","pedidos"] }
+          }
+        },
+        {
+          "name": "POST — Criar pedido (400) — email inválido",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroPedido\": \"PED-009\",\n  \"clienteNome\": \"Teste Email\",\n  \"clienteEmail\": \"email-invalido\",\n  \"itens\": [\n    { \"produtoId\": 1, \"quantidade\": 1 }\n  ]\n}"
+            },
+            "url": { "raw": "{{host}}/api/pedidos", "host": ["{{host}}"], "path": ["api","pedidos"] }
+          }
+        },
+        {
+          "name": "POST — Criar pedido (400) — sem itens",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroPedido\": \"PED-010\",\n  \"clienteNome\": \"Sem Itens\",\n  \"clienteEmail\": \"semitens@email.com\",\n  \"itens\": []\n}"
+            },
+            "url": { "raw": "{{host}}/api/pedidos", "host": ["{{host}}"], "path": ["api","pedidos"] }
+          }
+        },
+        {
+          "name": "PUT — Status: Pendente → Processando",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Processando\"\n}"
+            },
+            "url": { "raw": "{{host}}/api/pedidos/1/status", "host": ["{{host}}"], "path": ["api","pedidos","1","status"] }
+          }
+        },
+        {
+          "name": "PUT — Status: Processando → Enviado",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Enviado\"\n}"
+            },
+            "url": { "raw": "{{host}}/api/pedidos/1/status", "host": ["{{host}}"], "path": ["api","pedidos","1","status"] }
+          }
+        },
+        {
+          "name": "PUT — Status: Enviado → Entregue",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Entregue\"\n}"
+            },
+            "url": { "raw": "{{host}}/api/pedidos/1/status", "host": ["{{host}}"], "path": ["api","pedidos","1","status"] }
+          }
+        },
+        {
+          "name": "PUT — Status (400) — transição inválida",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Pendente\"\n}"
+            },
+            "url": { "raw": "{{host}}/api/pedidos/1/status", "host": ["{{host}}"], "path": ["api","pedidos","1","status"] }
+          }
+        },
+        {
+          "name": "PUT — Status (400) — status inexistente",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"StatusInexistente\"\n}"
+            },
+            "url": { "raw": "{{host}}/api/pedidos/1/status", "host": ["{{host}}"], "path": ["api","pedidos","1","status"] }
+          }
+        },
+        {
+          "name": "DELETE — Cancelar pedido",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{host}}/api/pedidos/5", "host": ["{{host}}"], "path": ["api","pedidos","5"] }
+          }
+        },
+        {
+          "name": "DELETE — Pedido não encontrado (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{host}}/api/pedidos/999", "host": ["{{host}}"], "path": ["api","pedidos","999"] }
+          }
+        }
+      ]
+    }
+  ]
+}
