@@ -204,7 +204,7 @@ namespace Application.Itau.Pedidos.Services
             var produtos = await _produtosRepository.GetPorIds(idsProdutos);
 
             var idsEncontrados = produtos
-                .Select(p => p.Id)
+                .Select(p => p.Id)  
                 .ToHashSet();
 
             var idsNaoEncontrados = idsProdutos
